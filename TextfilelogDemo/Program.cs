@@ -41,10 +41,12 @@ namespace TextfilelogDemo
                 FileStream fileStream = File.Create(logFileName);
                 fileStream.Close();
             }
-            StreamWriter streamWriter = new StreamWriter(logFileName, true, System.Text.Encoding.Default);
+            FileStream fileRead = new(logFileName, FileMode.Append, FileAccess.Write, FileShare.Write);
+            StreamWriter streamWriter = new StreamWriter(fileRead, System.Text.Encoding.Default);
             streamWriter.WriteLine(logMSG);
             streamWriter.Flush();
             streamWriter.Close();
+            fileRead.Close();
         }
     }
 }
